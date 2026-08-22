@@ -1,0 +1,76 @@
+---
+// src/layouts/main.astro
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title,
+  description = 'Ice Benitez is a product engineer who turns ambiguous ideas into useful, reliable software.',
+  robots = 'index, follow',
+} = Astro.props;
+const pageTitle = title
+  ? `${title} | Ice Benitez`
+  : 'Ice Benitez | Product Engineer';
+const siteUrl = 'https://icebenitez.com';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ice Benitez',
+  url: siteUrl,
+  sameAs: ['https://www.linkedin.com/in/jason-isaac-benitez-3a8a08164/'],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Prevent theme flash: apply dark class before any paint -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="keywords" content="Product Engineer, Web Development, Automation, JavaScript, TypeScript, Python, Go" />
+    <meta name="author" content="Ice Benitez" />
+    <link rel="canonical" href={`${siteUrl}${Astro.url.pathname}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${siteUrl}${Astro.url.pathname}`} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Ice Benitez Portfolio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@icebenitez" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+
+  <body class="antialiased">
+    <Header />
+    <slot />
+    <Footer />
+
+    {
+      <!-- Cloudflare Web Analytics -->
+      <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bf9ef73906e4e1395730dbb9af966e0"}'></script>
+      <!-- End Cloudflare Web Analytics -->
+    }
+  </body>
+</html>

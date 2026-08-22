@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  githubLink?: string;
+  webLink: string;
+  tags: string[];
+}
+
+const {
+  title,
+  description,
+  githubLink,
+  webLink,
+  tags,
+} = Astro.props;
+---
+
+<article class="group flex h-full flex-col overflow-hidden rounded-xl bg-card text-sm text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-transform hover:-translate-y-2">
+  <a href={webLink} target="_blank" rel="noopener noreferrer" class="block">
+    <div class="p-6">
+      <h3 class="mb-2 text-xl font-semibold">{title}</h3>
+      <p class="mb-4 text-sm text-muted-foreground">{description}</p>
+      <div class="flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span class="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </a>
+
+  {githubLink && (
+    <div class="mt-auto flex items-center px-6 pb-6">
+      <a href={githubLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm hover:underline">
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+          <path d="M9 18c-4.51 2-5-2-7-2" />
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+  )}
+</article>

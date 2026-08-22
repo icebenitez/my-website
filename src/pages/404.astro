@@ -1,0 +1,30 @@
+---
+import MainLayout from '../layouts/main.astro';
+---
+
+<MainLayout title="404 - Page Not Found" description="The page you are looking for does not exist.">
+  <main class="flex min-h-[calc(100vh-8rem)] flex-col items-center justify-center p-4 text-center md:p-6">
+    <div class="max-w-2xl space-y-6 px-4">
+      <div class="relative inline-block">
+        <div class="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary to-accent blur opacity-25"></div>
+        <div class="relative flex flex-col items-center rounded-lg border bg-background p-8">
+          <svg class="mb-4 size-16 animate-bounce text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" /><path d="M8 15s1.5 1 4 1 4-1 4-1" /><path d="M9 9h.01" /><path d="M15 9h.01" />
+          </svg>
+          <h1 class="bg-gradient-to-b from-foreground to-muted-foreground bg-clip-text text-7xl font-bold tracking-tighter text-transparent md:text-9xl">404</h1>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Page Not Found</h2>
+        <p class="mx-auto max-w-125 text-lg text-muted-foreground">Even our most advanced algorithms couldn&rsquo;t find the page you&rsquo;re looking for. It might have been moved, deleted, or never existed in this reality.</p>
+      </div>
+      <a href="/" class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-xs transition-colors hover:bg-primary/90">&larr; Back to Control Center</a>
+      <pre class="overflow-x-auto rounded-md bg-muted p-4 text-left font-mono text-xs text-muted-foreground opacity-50"><code>{`{
+  "status": 404,
+  "error": "Not Found",
+  "message": "The requested resource could not be located.",
+  "hint": "Check the URL or try returning to the home page."
+}`}</code></pre>
+    </div>
+  </main>
+</MainLayout>

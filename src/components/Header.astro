@@ -1,0 +1,146 @@
+---
+// src/components/Header.astro
+---
+
+<header class="sticky top-0 z-50 border-b px-2.5 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+  <div class="container mx-auto flex h-14 items-center">
+    <div class="mr-4 hidden md:flex">
+      <a class="mr-6 flex items-center space-x-2" href="/">
+        <span class="hidden font-bold sm:inline-block">
+          Ice Benitez
+        </span>
+      </a>
+      <nav class="flex items-center space-x-6 text-sm font-medium">
+        <a
+          href="/#about"
+          class="transition-colors hover:text-foreground/80"
+        >
+          About
+        </a>
+        <a
+          href="/#projects"
+          class="transition-colors hover:text-foreground/80"
+        >
+          Projects
+        </a>
+        <a
+          href="/#contact"
+          class="transition-colors hover:text-foreground/80"
+        >
+          Contact
+        </a>
+      </nav>
+    </div>
+    <div class="ml-auto flex items-center space-x-2">
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        class="relative inline-flex size-9 items-center justify-center rounded-md text-sm font-medium transition-all hover:bg-accent hover:text-accent-foreground md:hidden"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg class="menu-icon size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16" />
+          <path d="M4 12h16" />
+          <path d="M4 18h16" />
+        </svg>
+        <svg class="close-icon hidden size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12" />
+          <path d="M18 6L6 18" />
+        </svg>
+      </button>
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle"
+        class="relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all size-9 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
+        aria-label="Toggle theme"
+      >
+        <!-- Sun icon (visible in light mode) -->
+        <svg class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/>
+          <path d="M12 20v2"/>
+          <path d="m4.93 4.93 1.41 1.41"/>
+          <path d="m17.66 17.66 1.41 1.41"/>
+          <path d="M2 12h2"/>
+          <path d="M20 12h2"/>
+          <path d="m6.34 17.66-1.41 1.41"/>
+          <path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
+        <!-- Moon icon (visible in dark mode) -->
+        <svg class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div
+    id="mobile-menu"
+    class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-200 ease-out md:hidden"
+    aria-hidden="true"
+  >
+    <nav class="overflow-hidden border-t px-4 py-0 opacity-0 transition-[padding,opacity] duration-200 [&.is-open]:py-3 [&.is-open]:opacity-100" aria-label="Mobile navigation">
+      <a href="/#about" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">About</a>
+      <a href="/#projects" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Projects</a>
+      <a href="/#contact" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function getThemePreference() {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || stored === 'light') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }
+
+  const btn = document.getElementById('theme-toggle');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    });
+  }
+
+  const menuButton = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileNav = mobileMenu?.querySelector('nav');
+  const menuIcon = menuButton?.querySelector('.menu-icon');
+  const closeIcon = menuButton?.querySelector('.close-icon');
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.remove('grid-rows-[1fr]');
+    mobileNav?.classList.remove('is-open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    menuButton?.setAttribute('aria-label', 'Open navigation menu');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    menuIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+  }
+
+  menuButton?.addEventListener('click', () => {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+    if (isOpen) {
+      closeMobileMenu();
+      return;
+    }
+
+    mobileMenu?.classList.add('grid-rows-[1fr]');
+    mobileNav?.classList.add('is-open');
+    menuButton.setAttribute('aria-expanded', 'true');
+    menuButton.setAttribute('aria-label', 'Close navigation menu');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    menuIcon?.classList.add('hidden');
+    closeIcon?.classList.remove('hidden');
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+</script>

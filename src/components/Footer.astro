@@ -1,0 +1,26 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t">
+  <div class="container mx-auto flex w-full shrink-0 flex-col items-center gap-3 px-4 py-8 text-center sm:flex-row sm:gap-4 sm:px-6 sm:text-left">
+    <p class="text-xs text-muted-foreground">
+      &copy; {currentYear} Ice Benitez. All rights reserved.
+    </p>
+    <nav class="flex gap-4 sm:ml-auto sm:gap-6" aria-label="Legal">
+      <a
+        class="text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        href="/terms-of-service"
+      >
+        Terms of Service
+      </a>
+      <a
+        class="text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        href="/privacy-policy"
+      >
+        Privacy
+      </a>
+    </nav>
+  </div>
+</footer>
