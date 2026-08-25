@@ -13,7 +13,6 @@ const pageTitle = title
   ? `${title} | Ice Benitez`
   : 'Ice Benitez | Product Engineer';
 const siteUrl = 'https://icebenitez.com';
-const analyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -69,14 +68,12 @@ const jsonLd = {
     <Footer />
 
     <!-- Cloudflare Web Analytics -->
-    {analyticsToken && (
-      <script
-        is:inline
-        type="module"
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon={JSON.stringify({ token: analyticsToken })}
-      ></script>
-    )}
+    <script
+      is:inline
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "2bf9ef73906e4e1395730dbb9af966e0"}'
+    ></script>
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
