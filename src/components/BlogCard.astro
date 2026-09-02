@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  href: string;
+  date: string;
+}
+
+const { title, description, tags, href, date } = Astro.props;
+const formattedDate = new Date(date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<article class="group flex h-full flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-transform hover:-translate-y-1">
+  <a href={href} class="block flex flex-col h-full p-6">
+    <time class="mb-2 text-xs text-muted-foreground" datetime={date}>{formattedDate}</time>
+    <h3 class="mb-2 text-lg font-semibold group-hover:text-primary transition-colors">{title}</h3>
+    <p class="mb-4 flex-1 text-sm text-muted-foreground">{description}</p>
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span class="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </a>
+</article>

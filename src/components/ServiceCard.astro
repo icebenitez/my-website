@@ -1,0 +1,20 @@
+---
+import ServiceIcon from './ServiceIcon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  icon: 'rocket' | 'settings' | 'chart' | 'wrench';
+}
+
+const { title, description, icon } = Astro.props;
+---
+
+<div class="group relative flex flex-col overflow-hidden rounded-xl bg-card p-6 shadow-xs ring-1 ring-foreground/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:ring-foreground/20 sm:p-8">
+  <span class="absolute inset-x-0 top-0 h-0.5 scale-x-0 bg-primary/40 transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span>
+  <div class="mb-5 inline-flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/15 transition-transform duration-300 group-hover:scale-105">
+    <ServiceIcon name={icon} class="size-5" />
+  </div>
+  <h3 class="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
+  <p class="text-sm leading-relaxed text-muted-foreground">{description}</p>
+</div>

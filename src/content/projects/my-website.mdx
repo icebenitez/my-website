@@ -1,0 +1,110 @@
+---
+title: "Personal Website"
+description: "A fast, content-driven portfolio built with Astro, TypeScript, and Tailwind CSS. Deployed on Cloudflare Pages."
+tags: ["Astro", "TypeScript", "Tailwind CSS", "Cloudflare", "MDX"]
+status: published
+date: 2026-08-27
+githubLink: "https://github.com/icebenitez/my-website"
+webLink: "https://icebenitez.com"
+---
+
+## The Goal
+
+I wanted an online presence to showcase my work, a way to continue learning by building real projects, and a place to document what I'm building and learning along the way.
+
+My constraints were simple:
+
+- **Fast** — I want visitors to see content instantly, not watch a spinner
+- **Easy to maintain** — Adding a new project or blog post should be as simple as dropping a file in a folder
+- **Minimal JavaScript** — Most of the site should be static HTML. No React hydration tax for a portfolio
+- **Good developer experience** — TypeScript, proper tooling, something I enjoy working on
+
+## The Approach
+
+### Why Astro
+
+I considered Next.js and Gatsby, but Astro won for a few reasons:
+
+- **Content-first** — It's built for content sites, not dashboards. Content collections, MDX support, and static generation are first-class
+- **Zero JS by default** — Components ship as HTML. The only JavaScript on this site is the theme toggle and mobile menu
+- **Island architecture** — If I ever need interactive components (React, Vue, Svelte), I can drop them in without rebuilding everything
+- **Simple** — The framework gets out of the way. No complex routing, no server-side state, no build configuration nightmares
+
+### Tech Stack
+
+| Layer | Choice | Why |
+|---|---|---|
+| Framework | Astro 7 | Content-first, zero JS, great DX |
+| Styling | Tailwind CSS 4 | Utility-first, fast iteration |
+| Typography | Inter Variable | Clean, modern, variable font |
+| Content | MDX | Markdown with embedded components |
+| Colors | oklch | Perceptually uniform, better dark mode |
+| Hosting | Cloudflare Pages | Edge deployment, fast globally |
+| Analytics | Cloudflare Web Analytics | Privacy-friendly, no cookie banner needed |
+
+### Design System
+
+I built a shadcn/ui-style design system using CSS custom properties with the oklch color space. This gives me:
+
+- **Semantic tokens** — `--background`, `--foreground`, `--primary`, `--muted`, etc. Components reference tokens, not raw colors
+- **Dark mode for free** — Swap the token values in a `.dark` class, everything updates
+- **FOUC prevention** — An inline script in `<head>` applies the dark class before the first paint, so there's no flash of wrong theme
+
+I wrote custom prose styles instead of using `@tailwindcss/typography` because the plugin wasn't compatible with Tailwind CSS 4 at the time. The custom styles use the same semantic tokens, so they adapt to dark mode automatically.
+
+### Content Architecture
+
+The site uses Astro's content collections with the glob loader:
+
+- **`src/content/projects/`** — Each project is an MDX file with frontmatter (title, description, tags, date, links)
+- **`src/content/blog/`** — Same pattern for blog posts
+- **`src/content.config.ts`** — Zod schemas validate frontmatter at build time. If I miss a required field, the build fails
+
+Adding a new project is literally creating a new `.mdx` file. No database, no CMS, no admin panel. Just files and git.
+
+### Component Structure
+
+Intentionally minimal:
+
+- **`main.astro`** — Single layout. Handles SEO (title, description, OG tags, Twitter cards, JSON-LD), theme toggle, and analytics
+- **`Header.astro`** — Sticky nav with mobile menu and theme toggle
+- **`Footer.astro`** — Copyright and legal links
+- **`ProjectCard.astro`** — Reusable card with optional hero image, tags, and external links
+- **`BlogCard.astro`** — Compact card for blog listings
+- **`ServiceCard.astro`** — Icon + title + description for the services page
+
+Six components total. That's it.
+
+## Key Features
+
+- **Content collections** — Type-safe MDX with Zod validation. Draft/published status, automatic sorting by date
+- **Dark mode** — System preference detection + manual toggle + localStorage persistence + FOUC prevention
+- **SEO** — JSON-LD structured data (Person schema for home, Article schema for case studies, BlogPosting for blog), canonical URLs, OpenGraph, Twitter cards, dynamic sitemap
+- **Performance** — Static generation, edge deployment, zero client-side JavaScript (except theme/menu)
+- **Responsive** — Mobile-first with Tailwind breakpoints. Hamburger menu for mobile nav
+
+## Results
+
+- **11 pages** built in under 5 seconds
+- **Zero client-side JavaScript** for core functionality
+- **Type-safe content** — Build fails if frontmatter is missing required fields
+- **Easy to extend** — New project? New blog post? Just add a file
+- **Global performance** — Edge deployment on Cloudflare means fast load times everywhere
+
+## What I Learned
+
+**Content collections are powerful.** Once I had the schema defined, adding content became trivial. The type safety catches mistakes before they hit production.
+
+**Simpler is better.** Six components, one layout, static HTML. The site does exactly what it needs to do and nothing more. There's no bundle to optimize, no hydration to debug, no state to manage.
+
+**oklch is worth it.** The perceptually uniform color space makes dark mode feel natural. Colors don't shift in unexpected ways when you invert the background.
+
+**What I'd do differently:** I'd probably add an RSS feed for the blog from the start. It's easy to add later, but it's one of those things that's better to have from day one.
+
+## What's Next
+
+- Add screenshots and hero images to project pages
+- Write more case studies as I build new projects
+- Add a blog post or two
+- Consider adding search for blog content
+- RSS feed

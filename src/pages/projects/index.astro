@@ -1,0 +1,49 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.status === 'published')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
+---
+
+<MainLayout title="Projects" description="Projects and case studies of products and systems I've built.">
+  <main class="container mx-auto px-4 md:px-6">
+    <section class="py-12 md:py-24 lg:py-32">
+      <div class="container px-4 md:px-6">
+        <div class="mx-auto max-w-3xl text-center" data-animate="fade-up">
+          <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Projects
+          </h1>
+          <p class="mt-4 text-muted-foreground md:text-lg">
+            A look at products and systems I've built, from problem to solution.
+          </p>
+        </div>
+
+        {projects.length === 0 ? (
+          <div class="mt-16 text-center text-muted-foreground">
+            <p>No projects published yet. Check back soon.</p>
+          </div>
+        ) : (
+          <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-animate-stagger>
+            {projects.map((p) => (
+              <ProjectCard
+                title={p.data.title}
+                description={p.data.description}
+                tags={p.data.tags}
+                href={`/projects/${p.id}`}
+                date={p.data.date.toISOString()}
+                heroImage={p.data.heroImage}
+                githubLink={p.data.githubLink}
+                webLink={p.data.webLink}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</MainLayout>
