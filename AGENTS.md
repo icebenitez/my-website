@@ -1,12 +1,17 @@
+## Communication
+
+Always respond in English only. Do not write replies in Mandarin, Chinese, or any other language, even if the conversation context contains them.
+
 ## Development
 
-When starting the dev server, use background mode:
+This is an npm-workspaces monorepo (`apps/web`, `apps/services`, `apps/blog`). When starting the dev server, run it from the target app directory and use background mode:
 
 ```
+cd apps/web    # or apps/services
 astro dev --background
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+Install dependencies from the repo root with `npm install`. Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
 ## Documentation
 
