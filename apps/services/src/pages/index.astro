@@ -1,0 +1,61 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const offers = [
+  {
+    title: 'SaaS Products',
+    description: 'Full-stack web and mobile applications built from idea to production. I handle architecture, development, and deployment.',
+  },
+  {
+    title: 'Custom Backend Systems',
+    description: 'APIs, databases, and internal tools designed for your specific workflows. Built to scale with your business.',
+  },
+  {
+    title: 'Analytics Dashboards & Business Intelligence',
+    description: 'From custom dashboards to BI tool setup (PowerBI, Metabase, Superset), I build the systems that turn your data into clear, actionable insights.',
+  },
+  {
+    title: 'Automation & Integration',
+    description: 'Workflow automation, third-party integrations, and custom tools that save your team time and reduce errors.',
+  },
+] as const;
+---
+
+<MainLayout>
+  <main class="container mx-auto px-4">
+    <section class="py-16 md:py-24">
+      <div class="mx-auto max-w-2xl text-center">
+        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          Services
+        </h1>
+        <p class="mt-4 text-muted-foreground md:text-lg">
+          I help startups and businesses build reliable software. Here's how I can help.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-16 grid max-w-4xl gap-6 sm:grid-cols-2">
+        {offers.map((offer) => (
+          <div class="rounded-xl bg-card p-6 shadow-xs ring-1 ring-foreground/10">
+            <h2 class="text-lg font-semibold tracking-tight">{offer.title}</h2>
+            <p class="mt-2 text-sm text-muted-foreground">{offer.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="pb-16 md:pb-24">
+      <div class="mx-auto max-w-2xl rounded-xl bg-card p-8 text-center shadow-xs ring-1 ring-foreground/10">
+        <h2 class="text-2xl font-bold tracking-tighter">Have a project in mind?</h2>
+        <p class="mt-4 text-muted-foreground">
+          Let's talk about what you need and how I can help.
+        </p>
+        <a
+          href="https://icebenitez.com/contact"
+          class="mt-6 inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+        >
+          Get in touch
+        </a>
+      </div>
+    </section>
+  </main>
+</MainLayout>
