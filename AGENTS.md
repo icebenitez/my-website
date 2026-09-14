@@ -1,6 +1,6 @@
 ## Development
 
-This is an npm-workspaces monorepo (`apps/web`, `apps/services`). When starting the dev server, run it from the target app directory and use background mode:
+This is an npm-workspaces monorepo (`apps/web`, `apps/services`, `apps/blog`). When starting the dev server, run it from the target app directory and use background mode:
 
 ```
 cd apps/web    # or apps/services

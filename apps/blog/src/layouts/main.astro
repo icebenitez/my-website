@@ -1,0 +1,93 @@
+---
+// apps/blog/src/layouts/main.astro
+import '../styles/global.css';
+import { SITE_URL, MAIN_URL } from '../site';
+
+const {
+  title = 'Ice Benitez | Blog',
+  description = 'Thoughts on product engineering, building software, and working with startups.',
+  robots = 'index, follow',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Prevent theme flash: apply dark class before any paint -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="author" content="Ice Benitez" />
+    <link rel="canonical" href={`${SITE_URL}${Astro.url.pathname}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${SITE_URL}${Astro.url.pathname}`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Ice Benitez Blog" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </head>
+
+  <body class="antialiased">
+    <header class="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div class="container mx-auto flex h-14 items-center justify-between px-4">
+        <a href="/" class="font-bold">Ice Benitez — Blog</a>
+        <nav class="flex items-center space-x-6 text-sm font-medium">
+          <a class="transition-colors hover:text-foreground/80" href={MAIN_URL}>icebenitez.com</a>
+          <a class="transition-colors hover:text-foreground/80" href={`${MAIN_URL}/contact`}>Contact</a>
+          <button
+            id="theme-toggle"
+            class="relative inline-flex size-9 items-center justify-center rounded-md text-sm font-medium transition-all hover:bg-accent hover:text-accent-foreground"
+            aria-label="Toggle theme"
+          >
+            <svg class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M2 12h2"/>
+              <path d="M20 12h2"/>
+              <path d="M12 2v2"/>
+              <path d="M12 20v2"/>
+            </svg>
+            <svg class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <footer class="border-t py-8">
+      <div class="container mx-auto px-4 text-sm text-muted-foreground">
+        <p>Part of <a class="underline" href={MAIN_URL}>icebenitez.com</a>.</p>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+          localStorage.setItem('theme', next);
+          document.documentElement.classList.toggle('dark', next === 'dark');
+        });
+      }
+    </script>
+  </body>
+</html>

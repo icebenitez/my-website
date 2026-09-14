@@ -2,7 +2,6 @@ import { statSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getCollection } from 'astro:content';
-
 import { SITE_URL } from '../site';
 
 const baseUrl = SITE_URL;
@@ -20,18 +19,14 @@ function getLastModified(sourceFile: string) {
 }
 
 export async function GET() {
-  const projects = (await getCollection('projects'))
-    .filter((p) => p.data.status === 'published');
+  const posts = (await getCollection('blog'))
+    .filter((post) => post.data.status === 'published');
 
   const urls = [
     { path: '/', sourceFile: './index.astro' },
-    { path: '/projects/', sourceFile: './projects/index.astro' },
-    { path: '/contact/', sourceFile: './contact/index.astro' },
-    { path: '/privacy-policy/', sourceFile: './privacy-policy/index.astro' },
-    { path: '/terms-of-service/', sourceFile: './terms-of-service/index.astro' },
-    ...projects.map((p) => ({
-      path: `/projects/${p.id}/`,
-      lastmod: p.data.date.toISOString().split('T')[0],
+    ...posts.map((post) => ({
+      path: `/${post.id}/`,
+      lastmod: post.data.date.toISOString().split('T')[0],
     })),
   ];
 

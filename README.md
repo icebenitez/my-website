@@ -6,6 +6,7 @@ npm-workspaces monorepo holding my web properties, all deployed on [Cloudflare P
 | --- | --- | --- | --- |
 | `apps/web` | `@icebenitez/web` | [icebenitez.com](https://icebenitez.com) | Personal portfolio, projects, blog, contact |
 | `apps/services` | `@icebenitez/services` | [services.icebenitez.com](https://services.icebenitez.com) | Service offerings: SaaS, backend systems, analytics/BI, automation |
+| `apps/blog` | `@icebenitez/blog` | [blog.icebenitez.com](https://blog.icebenitez.com) | Blog (MDX posts, root-level slug URLs) |
 
 ## Tech Stack
 
@@ -24,12 +25,13 @@ npm install
 # Dev servers
 npm run dev:web
 npm run dev:services
+npm run dev:blog
 
 # Build every app
 npm run build
 
 # Build one app
-npm run build --workspace apps/services
+npm run build --workspace apps/blog
 ```
 
 ## Project Structure
@@ -37,27 +39,33 @@ npm run build --workspace apps/services
 ```
 apps/
 ├── web/
-│   ├── src/
-│   │   ├── components/   # Header, Footer, ProjectCard, BlogCard
-│   │   ├── content/      # MDX projects & blog posts (content collections)
+│   │   ├── components/   # Header, Footer, ProjectCard
+│   │   ├── content/      # MDX project case studies (content collections)
 │   │   ├── layouts/      # main.astro
 │   │   ├── pages/        # Routes + sitemap.xml.ts / robots.txt.ts
 │   │   └── scripts/      # GSAP animations
 │   └── public/           # Static assets (favicon, manifest)
-└── services/
-    └── src/              # Landing page for services.icebenitez.com
+├── services/
+│   └── src/              # Landing page for services.icebenitez.com
+└── blog/
+    ├── src/
+    │   ├── components/   # BlogCard
+    │   ├── content/      # Blog MDX collection
+    │   ├── layouts/      # main.astro
+    │   └── pages/        # / and /[slug] (root-level post slugs) + sitemap/robots
+    └── public/           # Static assets
 ```
 
 ## Cloudflare Pages Setup
 
-Two separate Pages projects, both connected to this repo:
+Three separate Pages projects, all connected to this repo:
 
-| Setting | web project | services project |
-| --- | --- | --- |
-| Root directory | repo root | repo root |
-| Build command | `npm install && npm run build --workspace apps/web` | `npm install && npm run build --workspace apps/services` |
-| Output directory | `apps/web/dist` | `apps/services/dist` |
-| Custom domain | `icebenitez.com` | `services.icebenitez.com` |
+| Setting | web project | services project | blog project |
+| --- | --- | --- | --- |
+| Root directory | repo root | repo root | repo root |
+| Build command | `npm install && npm run build --workspace apps/web` | `npm install && npm run build --workspace apps/services` | `npm install && npm run build --workspace apps/blog` |
+| Output directory | `apps/web/dist` | `apps/services/dist` | `apps/blog/dist` |
+| Custom domain | `icebenitez.com` | `services.icebenitez.com` | `blog.icebenitez.com` |
 
 ## License
 

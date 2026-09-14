@@ -12,8 +12,10 @@
   "scripts": {
     "dev:web": "npm run dev --workspace apps/web",
     "dev:services": "npm run dev --workspace apps/services",
+    "dev:blog": "npm run dev --workspace apps/blog",
     "build": "npm run build --workspaces",
     "preview:web": "npm run preview --workspace apps/web",
-    "preview:services": "npm run preview --workspace apps/services"
+    "preview:services": "npm run preview --workspace apps/services",
+    "preview:blog": "npm run preview --workspace apps/blog"
   }
 }

@@ -1,7 +1,7 @@
 ---
-import MainLayout from '../../layouts/main.astro';
+import MainLayout from '../layouts/main.astro';
 import { getCollection, render } from 'astro:content';
-import { SITE_URL } from '../../site';
+import { SITE_URL, MAIN_URL } from '../site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -25,20 +25,17 @@ const jsonLd = {
   author: {
     '@type': 'Person',
     name: 'Ice Benitez',
-    url: SITE_URL,
+    url: MAIN_URL,
   },
 };
 ---
 
-<MainLayout
-  title={post.data.title}
-  description={post.data.description}
->
+<MainLayout title={`${post.data.title} | Ice Benitez Blog`} description={post.data.description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <main class="container mx-auto px-4 md:px-6">
     <article class="py-12 md:py-24 lg:py-32">
       <div class="mx-auto max-w-3xl">
-        <a href="/blog" class="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <a href="/" class="mb-8 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m15 18-6-6 6-6"/>
           </svg>
@@ -64,7 +61,7 @@ const jsonLd = {
           </div>
         </header>
 
-        <div class="prose prose-neutral dark:prose-invert max-w-none">
+        <div class="prose max-w-none">
           <Content />
         </div>
       </div>
