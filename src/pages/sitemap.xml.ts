@@ -25,7 +25,6 @@ export async function GET() {
 
   const urls = [
     { path: '/', sourceFile: './index.astro' },
-    { path: '/services/', sourceFile: './services/index.astro' },
     { path: '/projects/', sourceFile: './projects/index.astro' },
     { path: '/blog/', sourceFile: './blog/index.astro' },
     { path: '/contact/', sourceFile: './contact/index.astro' },
