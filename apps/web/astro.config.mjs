@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://icebenitez.com',
+  site: process.env.PUBLIC_SITE_URL ?? 'https://icebenitez.com',
   integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],

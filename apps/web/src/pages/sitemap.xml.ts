@@ -3,7 +3,9 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getCollection } from 'astro:content';
 
-const baseUrl = 'https://icebenitez.com';
+import { SITE_URL } from '../site';
+
+const baseUrl = SITE_URL;
 
 function getLastModified(sourceFile: string) {
   try {

@@ -1,5 +1,6 @@
 ---
 // src/components/Header.astro
+import { SERVICES_URL } from '../site';
 ---
 
 <header class="sticky top-0 z-50 border-b px-2.5 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -12,7 +13,7 @@
       </a>
       <nav class="flex items-center space-x-6 text-sm font-medium">
         <a
-          href="https://services.icebenitez.com"
+          href={SERVICES_URL}
           class="transition-colors hover:text-foreground/80"
         >
           Services
@@ -87,7 +88,7 @@
     aria-hidden="true"
   >
     <nav class="overflow-hidden border-t px-4 py-0 opacity-0 transition-[padding,opacity] duration-200 [&.is-open]:py-3 [&.is-open]:opacity-100" aria-label="Mobile navigation">
-      <a href="https://services.icebenitez.com" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Services</a>
+      <a href={SERVICES_URL} class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Services</a>
       <a href="/projects" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Projects</a>
       <a href="/blog" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Blog</a>
       <a href="/contact" class="block py-2 text-sm font-medium transition-colors hover:text-foreground/80">Contact</a>

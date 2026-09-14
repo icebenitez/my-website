@@ -3,6 +3,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { SITE_URL } from '../site';
 
 const {
   title,
@@ -12,7 +13,7 @@ const {
 const pageTitle = title
   ? `${title} | Ice Benitez`
   : 'Ice Benitez | Product Engineer';
-const siteUrl = 'https://icebenitez.com';
+const siteUrl = SITE_URL;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',

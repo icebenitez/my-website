@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://services.icebenitez.com',
+  site: process.env.PUBLIC_SITE_URL ?? 'https://services.icebenitez.com',
   vite: {
     plugins: [tailwindcss()],
   },
