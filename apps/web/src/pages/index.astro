@@ -1,6 +1,11 @@
 ---
 import MainLayout from '../layouts/main.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.status === 'published')
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <MainLayout>
@@ -75,20 +80,18 @@ import ProjectCard from '../components/ProjectCard.astro';
           Battle Tested Projects
         </h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <ProjectCard
-            title="This website"
-            description="Personal portfolio website built with Astro, TypeScript, and Tailwind CSS, deployed on Cloudflare Pages."
-            githubLink="https://github.com/icebenitez/my-website"
-            webLink="https://icebenitez.com"
-            tags={['Astro', 'TypeScript', 'Tailwind CSS', 'Cloudflare']}
-          />
-          <ProjectCard
-            title="Pastry Shop"
-            description="A fictional pastry shop website featuring a menu showcase and shop information. Built with Astro and deployed on Vercel."
-            githubLink="https://github.com/icebenitez/pastry-shop"
-            webLink="https://pastry-shop-eta.vercel.app/"
-            tags={['Astro', 'Vercel']}
-          />
+          {projects.map((p) => (
+            <ProjectCard
+              title={p.data.title}
+              description={p.data.description}
+              tags={p.data.tags}
+              href={`/projects/${p.id}`}
+              date={p.data.date.toISOString()}
+              heroImage={p.data.heroImage}
+              githubLink={p.data.githubLink}
+              webLink={p.data.webLink}
+            />
+          ))}
         </div>
       </div>
     </section>
