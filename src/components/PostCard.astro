@@ -422,13 +422,22 @@ const sizes = {
 
 	@media (max-width: 560px) {
 		.post--row {
-			grid-template-columns: minmax(0, 1fr) 6rem;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--spacing-4);
 			padding-block: var(--spacing-6);
 		}
 
 		.post--row .post__media {
-			aspect-ratio: 1;
+			grid-column: 1;
+			grid-row: 1;
+			aspect-ratio: 16 / 9;
+		}
+
+		.post--row .post__body {
+			grid-column: 1;
+			grid-row: 2;
+			max-width: none;
+			gap: var(--spacing-3);
 		}
 
 		.post--row .post__title {
@@ -437,13 +446,6 @@ const sizes = {
 
 		.post--row .post__excerpt {
 			font-size: var(--font-size-sm);
-		}
-	}
-
-	@media (max-width: 400px) {
-		.post--row {
-			grid-template-columns: minmax(0, 1fr) 4.5rem;
-			gap: var(--spacing-3);
 		}
 	}
 </style>
