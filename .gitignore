@@ -29,3 +29,4 @@ pnpm-debug.log*
 .emdash/
 wrangler-dev.log
 payload.json
+.wrangler/
