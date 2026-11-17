@@ -1,0 +1,36 @@
+---
+title: "Backend Patterns I Keep Reusing"
+description: "The boring patterns that show up in every backend I build."
+tags: ["Backend", "APIs"]
+status: published
+date: 2026-06-30
+---
+
+After enough greenfield projects, you notice the same shapes recurring.
+
+## The Idempotent Everything
+
+> If an operation can be retried, it will be retried.
+
+Idempotency keys on anything that writes money or state.
+
+## Append-Only First
+
+1. Write events to an append-only log
+2. Project views from the log
+3. Rebuild anything, destroy nothing
+
+## Small Schemas
+
+```
+id    uuid pk
+kind  text
+body  jsonb
+ts    timestamptz
+```
+
+Start with a narrow, well-indexed core. You can widen later; you can rarely un-widen.
+
+## The One Rule
+
+Operational complexity must earn its place.

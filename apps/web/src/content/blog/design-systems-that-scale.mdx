@@ -1,0 +1,33 @@
+---
+title: "Design Systems That Scale"
+description: "What I learned building design systems that survive their creators."
+tags: ["Design", "Engineering"]
+status: published
+date: 2026-08-10
+---
+
+Design systems fail for boring reasons: nobody owns them, or everybody owns them. The ones that last share a few traits.
+
+## Start With Tokens
+
+> A design system is not a component library. It's a vocabulary.
+
+- Color, spacing, and radius tokens come first
+- Components are just opinions on top of tokens
+- If a token can't be named, it can't be reused
+
+## Documentation Is the Product
+
+The code is the easy part. What makes a system scale is the writing around it.
+
+## You Will Iterate
+
+```ts
+// tokens are the API of your brand
+export const color = {
+  bg: '#ffffff',
+  fg: '#0a0a0a',
+}
+```
+
+Delete components aggressively. A small system people use beats a big one people fear.
