@@ -18,11 +18,11 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="group flex h-full flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-transform hover:-translate-y-2">
+<article class="group flex h-full flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-transform motion-safe:hover:-translate-y-2">
   <a href={href} class="block flex flex-col h-full">
     {heroImage && (
       <div class="aspect-video overflow-hidden bg-muted">
-        <img src={heroImage} alt={title} class="h-full w-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
+        <img src={heroImage} alt={title} class="h-full w-full object-cover transition-transform motion-safe:group-hover:scale-105" loading="lazy" />
       </div>
     )}
     <div class="flex flex-1 flex-col p-6">
@@ -31,7 +31,7 @@ const formattedDate = new Date(date).toLocaleDateString('en-US', {
       <p class="mb-4 flex-1 text-sm text-muted-foreground">{description}</p>
       <div class="flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <span class="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10">
+          <span class="inline-flex items-center rounded-md bg-muted px-2 py-1 text-xs font-medium ring-1 ring-inset ring-foreground/10">
             {tag}
           </span>
         ))}

@@ -38,6 +38,8 @@
     --primary: oklch(0.546 0.245 262.881);
     --primary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.97 0 0);
+    /* muted-foreground passes AA at 4.73:1 on white at full opacity only —
+       never apply opacity modifiers (e.g. text-muted-foreground/70) to it. */
     --muted-foreground: oklch(0.556 0 0);
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
