@@ -25,5 +25,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# EmDash local state.emdash/
+# EmDash local state
+.emdash/
 wrangler-dev.log
+payload.json
