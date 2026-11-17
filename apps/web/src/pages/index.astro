@@ -1,11 +1,5 @@
 ---
 import MainLayout from '../layouts/main.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
-
-const projects = (await getCollection('projects'))
-  .filter((p) => p.data.status === 'published')
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <MainLayout>
@@ -74,25 +68,18 @@ const projects = (await getCollection('projects'))
       </div>
     </section>
 
-    <section id="projects" class="py-12 md:py-24 lg:py-32">
-      <div class="container px-4 md:px-6">
-        <h2 class="mb-12 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Battle Tested Projects
-        </h2>
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <ProjectCard
-              title={p.data.title}
-              description={p.data.description}
-              tags={p.data.tags}
-              href={`/projects/${p.id}`}
-              date={p.data.date.toISOString()}
-              heroImage={p.data.heroImage}
-              githubLink={p.data.githubLink}
-              webLink={p.data.webLink}
-            />
-          ))}
-        </div>
+    <section id="projects" class="pb-12 md:pb-24 lg:pb-32">
+      <div class="container px-4 text-center md:px-6">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          See my works
+          <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
       </div>
     </section>
 

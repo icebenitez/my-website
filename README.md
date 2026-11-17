@@ -1,71 +1,58 @@
-# Ice Benitez — Website Monorepo
+# Ice Benitez — Website
 
-npm-workspaces monorepo holding my web properties, all deployed on [Cloudflare Pages](https://pages.cloudflare.com).
-
-| App | Package | URL | Purpose |
-| --- | --- | --- | --- |
-| `apps/web` | `@icebenitez/web` | [icebenitez.com](https://icebenitez.com) | Personal portfolio, projects, blog, contact |
-| `apps/services` | `@icebenitez/services` | [services.icebenitez.com](https://services.icebenitez.com) | Service offerings: SaaS, backend systems, analytics/BI, automation |
-| `apps/blog` | `@icebenitez/blog` | [blog.icebenitez.com](https://blog.icebenitez.com) | Blog (MDX posts, root-level slug URLs) |
+Single Astro site deployed as a Cloudflare Worker: [icebenitez.com](https://icebenitez.com).
 
 ## Tech Stack
 
 - **Framework:** Astro 7.x
 - **Styling:** Tailwind CSS 4.x
-- **Font:** Inter (Variable)
-- **Deployment:** Cloudflare Pages (one project per app)
-- **Analytics:** Cloudflare Web Analytics (apps/web)
+- **Fonts:** Space Grotesk (headings), Archivo (body)
+- **Content:** MDX content collections (`projects`, `blog`)
+- **Animations:** GSAP (ScrollTrigger, SplitText)
+- **Deployment:** Cloudflare Worker with static assets (`wrangler.jsonc`)
+- **Analytics:** Cloudflare Web Analytics
 
 ## Development
 
 ```bash
-# Install all workspace dependencies (run at repo root)
+# Install dependencies (run at repo root)
 npm install
 
-# Dev servers
-npm run dev:web
-npm run dev:services
-npm run dev:blog
+# Dev server (http://localhost:4321)
+npm run dev
 
-# Build every app
+# Build
 npm run build
 
-# Build one app
-npm run build --workspace apps/blog
+# Preview the production build
+npm run preview
 ```
 
 ## Project Structure
 
 ```
-apps/
-├── web/
-│   │   ├── components/   # Header, Footer, ProjectCard
-│   │   ├── content/      # MDX project case studies (content collections)
-│   │   ├── layouts/      # main.astro
-│   │   ├── pages/        # Routes + sitemap.xml.ts / robots.txt.ts
-│   │   └── scripts/      # GSAP animations
-│   └── public/           # Static assets (favicon, manifest)
-├── services/
-│   └── src/              # Landing page for services.icebenitez.com
-└── blog/
-    ├── src/
-    │   ├── components/   # BlogCard
-    │   ├── content/      # Blog MDX collection
-    │   ├── layouts/      # main.astro
-    │   └── pages/        # / and /[slug] (root-level post slugs) + sitemap/robots
-    └── public/           # Static assets
+apps/web/src/
+├── components/   # Header, Footer, ProjectCard, BlogCard
+├── content/      # MDX collections: projects/ and blog/
+├── layouts/      # main.astro
+├── pages/        # Routes incl. /projects/*, /posts/*, sitemap.xml, robots.txt
+├── scripts/      # GSAP animations
+└── site.ts       # SITE_URL (from PUBLIC_SITE_URL, hardcoded fallback)
 ```
 
-## Cloudflare Pages Setup
+## Deployment
 
-Three separate Pages projects, all connected to this repo:
+Cloudflare Workers-style connected build (Worker name `my-website` — see `apps/web/wrangler.jsonc`):
 
-| Setting | web project | services project | blog project |
-| --- | --- | --- | --- |
-| Root directory | repo root | repo root | repo root |
-| Build command | `npm install && npm run build --workspace apps/web` | `npm install && npm run build --workspace apps/services` | `npm install && npm run build --workspace apps/blog` |
-| Output directory | `apps/web/dist` | `apps/services/dist` | `apps/blog/dist` |
-| Custom domain | `icebenitez.com` | `services.icebenitez.com` | `blog.icebenitez.com` |
+| Setting | Value |
+| --- | --- |
+| Build command | `npm install && npm run build` |
+| Deploy command | `npx wrangler deploy --config apps/web/wrangler.jsonc` |
+| Output directory | `apps/web/dist` |
+
+Environment variables (set in the Cloudflare dashboard for production; `.env.example` documents them):
+
+- `PUBLIC_SITE_URL` — canonical base URL (fallback: `https://icebenitez.com`)
 
 ## License
 
