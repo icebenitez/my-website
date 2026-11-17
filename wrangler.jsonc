@@ -8,6 +8,7 @@
 		{
 			"binding": "DB",
 			"database_name": "icebenitez-website",
+			"database_id": "f95f688f-4d81-4394-870f-a0913e43215e"
 		},
 	],
 	"r2_buckets": [
