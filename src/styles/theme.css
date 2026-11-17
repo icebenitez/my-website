@@ -7,13 +7,15 @@
 */
 
 :root {
+	/* Brand blue in both modes: the darker blue passes 4.5:1 with white
+	   text everywhere (the lighter dark-mode value measured 3.8:1). */
 	--color-brand: light-dark(
 		oklch(0.546 0.245 262.881),
-		oklch(0.623 0.214 259.815)
+		oklch(0.546 0.245 262.881)
 	);
 	--color-brand-hover: light-dark(
 		oklch(0.48 0.22 262),
-		oklch(0.68 0.2 259)
+		oklch(0.48 0.22 262)
 	);
 	--color-on-brand: light-dark(#ffffff, #ffffff);
 	--font-heading: "Space Grotesk", sans-serif;

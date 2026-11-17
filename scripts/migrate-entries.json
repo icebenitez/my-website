@@ -1,0 +1,135 @@
+[
+  {
+    "collection": "posts",
+    "slug": "backend-patterns-i-keep-reusing",
+    "data": {
+      "title": "Backend Patterns I Keep Reusing",
+      "date": "2026-06-30T12:00:00Z",
+      "excerpt": "The boring patterns that show up in every backend I build.",
+      "content": "After enough greenfield projects, you notice the same shapes recurring.\n\n## The Idempotent Everything\n\n> If an operation can be retried, it will be retried.\n\nIdempotency keys on anything that writes money or state.\n\n## Append-Only First\n\n1. Write events to an append-only log\n2. Project views from the log\n3. Rebuild anything, destroy nothing\n\n## Small Schemas\n\n```\nid    uuid pk\nkind  text\nbody  jsonb\nts    timestamptz\n```\n\nStart with a narrow, well-indexed core. You can widen later; you can rarely un-widen.\n\n## The One Rule\n\nOperational complexity must earn its place."
+    },
+    "tags": [
+      "Backend",
+      "APIs"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "design-systems-that-scale",
+    "data": {
+      "title": "Design Systems That Scale",
+      "date": "2026-08-10T12:00:00Z",
+      "excerpt": "What I learned building design systems that survive their creators.",
+      "content": "Design systems fail for boring reasons: nobody owns them, or everybody owns them. The ones that last share a few traits.\n\n## Start With Tokens\n\n> A design system is not a component library. It's a vocabulary.\n\n- Color, spacing, and radius tokens come first\n- Components are just opinions on top of tokens\n- If a token can't be named, it can't be reused\n\n## Documentation Is the Product\n\nThe code is the easy part. What makes a system scale is the writing around it.\n\n## You Will Iterate\n\n```ts\n// tokens are the API of your brand\nexport const color = {\n  bg: '#ffffff',\n  fg: '#0a0a0a',\n}\n```\n\nDelete components aggressively. A small system people use beats a big one people fear."
+    },
+    "tags": [
+      "Design",
+      "Engineering"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "i-like-small-tools",
+    "data": {
+      "title": "I Like Small Tools",
+      "date": "2026-04-27T12:00:00Z",
+      "excerpt": "In defense of software that does one thing and never asks for an account.",
+      "content": "The modern tooling stack keeps asking for signups. My favorite tools don't.\n\n## Qualities of Small Tools\n\n- Config as a single file\n- Exit code reliability\n- Also: no dashboard, no workspace, no seat pricing\n\n## My Current Kit\n\n```text\nrg     search\njq     reshape\ncurl   probe\nwr     measure\n```\n\n## Make Your Own When Cheap\n\nA 40-line script beats a 400-line dependency when the job stays small.\n\n> Big tools win demos. Small tools win weeks."
+    },
+    "tags": [
+      "Tools",
+      "Engineering"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "notes-on-being-a-solo-operator",
+    "data": {
+      "title": "Notes on Being a Solo Operator",
+      "date": "2026-06-05T12:00:00Z",
+      "excerpt": "What three months of working alone taught me about focus, scope, and rest.",
+      "content": "Working solo is a scheduling problem disguised as an identity problem.\n\n## Protect The Mornings\n\nDeep work before lunch. Calls after. Non-negotiable.\n\n## Scope In Days, Not Sprints\n\nA solo week is smaller than you think: one build, one review, one write-up.\n\n- Monday: plan, nothing else\n- Midweek: the hard 20%\n- Friday: ship, write, invoice\n\n## Rest Is Capacity\n\nBurnout is a hardware failure, not a schedule slip. Walks without a phone count as strategy sessions.\n\n> The goal is a pace you can hold for a decade, not a quarter."
+    },
+    "tags": [
+      "Freelancing"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "shipping-fast-without-breaking-trust",
+    "data": {
+      "title": "Shipping Fast Without Breaking Trust",
+      "date": "2026-07-22T12:00:00Z",
+      "excerpt": "The startup founder's paradox: move fast, but never lose the user's faith.",
+      "content": "Founders say they want speed. What they actually want is momentum they can trust.\n\n## Two-Speed Product\n\n| Layer | Change frequency | Risk tolerance |\n| ----- | ---------------- | -------------- |\n| Marketing pages | Daily | High |\n| Core flows | Weekly | Medium |\n| Billing/auth | Quarterly | Near zero |\n\n## The Trust Budget\n\nEvery launch spends from a trust budget. Ship small, ship reversible, and top the budget up with boring reliability.\n\n- Feature flags over rollbacks\n- Kill switches on anything with a queue\n- Decimal-point changes to pricing are never \"small\"\n\n## Ergonomics Beat Heroics\n\nA team that can deploy on a Friday afternoon isn't brave. It's disciplined."
+    },
+    "tags": [
+      "Startups",
+      "Process"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "technical-copilot",
+    "data": {
+      "title": "Every Startup Needs a Technical Co-pilot",
+      "date": "2026-05-18T12:00:00Z",
+      "excerpt": "Why solo non-technical founders should hire an engineer before their first design hire.",
+      "content": "The stack decisions small teams postpone become the taxes they pay at Series A.\n\n## The First Ten Decisions\n\n- One database, not none\n- A deploy pipeline, day two\n- Logging inbox-zero from the start\n\nA technical co-pilot is not a contractor. It's an engineer who argues with you about scope and then takes the keys.\n\n## What The Role Looks Like\n\n1. Own the architecture end to end\n2. Say no to the roadmap's nice pile\n3. Keep the prototype as production, not as debt\n\n## A Simple Test\n\nIf your founding team can't give a confident answer to \"who owns reliability?\" — you need a co-pilot."
+    },
+    "tags": [
+      "Startups",
+      "Product Engineering"
+    ]
+  },
+  {
+    "collection": "posts",
+    "slug": "why-i-went-independent",
+    "data": {
+      "title": "Why I Went Independent",
+      "date": "2026-08-28T12:00:00Z",
+      "excerpt": "Reflections on leaving full-time employment to work as an independent product engineer.",
+      "content": "After years of building products within companies, I decided to go independent. Here's why.\r\n\r\n## The Appeal of Product Engineering\r\n\r\nI've always enjoyed the full lifecycle of building software - from the fuzzy early stages of an idea, through architecture and implementation, to shipping and iterating in production. In a traditional role, you often get siloed into one part of that process.\r\n\r\nAs an independent product engineer, I get to own the whole journey.\r\n\r\n## What I'm Looking For\r\n\r\nI'm not looking to replace a 9-to-5 with freelance hours. I want to:\r\n\r\n- Work with startups that need technical co-pilots\r\n- Build products that solve real problems\r\n- Have ownership over the technical decisions\r\n- Work with a variety of tech stacks and challenges\r\n\r\n## The Backend Focus\r\n\r\nMy expertise is in backend systems - APIs, databases, internal tools. These aren't glamorous, but they're the backbone of most successful products. I enjoy building systems that are:\r\n\r\n- Reliable and maintainable\r\n- Well-documented and easy to hand off\r\n- Designed to scale with the business\r\n\r\n## What's Next\r\n\r\nI'm currently building out my portfolio with personal projects that demonstrate my approach to product engineering. Each project becomes a case study showing not just the code, but the thinking behind it.\r\n\r\nIf you're a startup founder looking for a technical partner, or a company that needs help building your next system, let's talk."
+    },
+    "tags": [
+      "Freelancing",
+      "Product Engineering",
+      "Startups"
+    ]
+  },
+  {
+    "collection": "projects",
+    "slug": "my-website",
+    "data": {
+      "title": "Personal Website",
+      "date": "2026-08-27T12:00:00Z",
+      "summary": "A fast, content-driven portfolio built with Astro, TypeScript, and Tailwind CSS. Deployed on Cloudflare Pages.",
+      "github_link": "https://github.com/icebenitez/my-website",
+      "web_link": "https://icebenitez.com",
+      "content": "## The Goal\r\n\r\nI wanted an online presence to showcase my work, a way to continue learning by building real projects, and a place to document what I'm building and learning along the way.\r\n\r\nMy constraints were simple:\r\n\r\n- **Fast** — I want visitors to see content instantly, not watch a spinner\r\n- **Easy to maintain** — Adding a new project or blog post should be as simple as dropping a file in a folder\r\n- **Minimal JavaScript** — Most of the site should be static HTML. No React hydration tax for a portfolio\r\n- **Good developer experience** — TypeScript, proper tooling, something I enjoy working on\r\n\r\n## The Approach\r\n\r\n### Why Astro\r\n\r\nI considered Next.js and Gatsby, but Astro won for a few reasons:\r\n\r\n- **Content-first** — It's built for content sites, not dashboards. Content collections, MDX support, and static generation are first-class\r\n- **Zero JS by default** — Components ship as HTML. The only JavaScript on this site is the theme toggle and mobile menu\r\n- **Island architecture** — If I ever need interactive components (React, Vue, Svelte), I can drop them in without rebuilding everything\r\n- **Simple** — The framework gets out of the way. No complex routing, no server-side state, no build configuration nightmares\r\n\r\n### Tech Stack\r\n\r\n| Layer | Choice | Why |\r\n|---|---|---|\r\n| Framework | Astro 7 | Content-first, zero JS, great DX |\r\n| Styling | Tailwind CSS 4 | Utility-first, fast iteration |\r\n| Typography | Inter Variable | Clean, modern, variable font |\r\n| Content | MDX | Markdown with embedded components |\r\n| Colors | oklch | Perceptually uniform, better dark mode |\r\n| Hosting | Cloudflare Pages | Edge deployment, fast globally |\r\n| Analytics | Cloudflare Web Analytics | Privacy-friendly, no cookie banner needed |\r\n\r\n### Design System\r\n\r\nI built a shadcn/ui-style design system using CSS custom properties with the oklch color space. This gives me:\r\n\r\n- **Semantic tokens** — `--background`, `--foreground`, `--primary`, `--muted`, etc. Components reference tokens, not raw colors\r\n- **Dark mode for free** — Swap the token values in a `.dark` class, everything updates\r\n- **FOUC prevention** — An inline script in `<head>` applies the dark class before the first paint, so there's no flash of wrong theme\r\n\r\nI wrote custom prose styles instead of using `@tailwindcss/typography` because the plugin wasn't compatible with Tailwind CSS 4 at the time. The custom styles use the same semantic tokens, so they adapt to dark mode automatically.\r\n\r\n### Content Architecture\r\n\r\nThe site uses Astro's content collections with the glob loader:\r\n\r\n- **`src/content/projects/`** — Each project is an MDX file with frontmatter (title, description, tags, date, links)\r\n- **`src/content/blog/`** — Same pattern for blog posts\r\n- **`src/content.config.ts`** — Zod schemas validate frontmatter at build time. If I miss a required field, the build fails\r\n\r\nAdding a new project is literally creating a new `.mdx` file. No database, no CMS, no admin panel. Just files and git.\r\n\r\n### Component Structure\r\n\r\nIntentionally minimal:\r\n\r\n- **`main.astro`** — Single layout. Handles SEO (title, description, OG tags, Twitter cards, JSON-LD), theme toggle, and analytics\r\n- **`Header.astro`** — Sticky nav with mobile menu and theme toggle\r\n- **`Footer.astro`** — Copyright and legal links\r\n- **`ProjectCard.astro`** — Reusable card with optional hero image, tags, and external links\r\n- **`BlogCard.astro`** — Compact card for blog listings\r\n\r\nFive components total. That's it.\r\n\r\n## Key Features\r\n\r\n- **Content collections** — Type-safe MDX with Zod validation. Draft/published status, automatic sorting by date\r\n- **Dark mode** — System preference detection + manual toggle + localStorage persistence + FOUC prevention\r\n- **SEO** — JSON-LD structured data (Person schema for home, Article schema for case studies, BlogPosting for blog), canonical URLs, OpenGraph, Twitter cards, dynamic sitemap\r\n- **Performance** — Static generation, edge deployment, zero client-side JavaScript (except theme/menu)\r\n- **Responsive** — Mobile-first with Tailwind breakpoints. Hamburger menu for mobile nav\r\n\r\n## Results\r\n\r\n- **11 pages** built in under 5 seconds\r\n- **Zero client-side JavaScript** for core functionality\r\n- **Type-safe content** — Build fails if frontmatter is missing required fields\r\n- **Easy to extend** — New project? New blog post? Just add a file\r\n- **Global performance** — Edge deployment on Cloudflare means fast load times everywhere\r\n\r\n## What I Learned\r\n\r\n**Content collections are powerful.** Once I had the schema defined, adding content became trivial. The type safety catches mistakes before they hit production.\r\n\r\n**Simpler is better.** Six components, one layout, static HTML. The site does exactly what it needs to do and nothing more. There's no bundle to optimize, no hydration to debug, no state to manage.\r\n\r\n**oklch is worth it.** The perceptually uniform color space makes dark mode feel natural. Colors don't shift in unexpected ways when you invert the background.\r\n\r\n**What I'd do differently:** I'd probably add an RSS feed for the blog from the start. It's easy to add later, but it's one of those things that's better to have from day one.\r\n\r\n## What's Next\r\n\r\n- Add screenshots and hero images to project pages\r\n- Write more case studies as I build new projects\r\n- Add a blog post or two\r\n- Consider adding search for blog content\r\n- RSS feed"
+    },
+    "tags": [
+      "Astro",
+      "TypeScript",
+      "Tailwind CSS",
+      "Cloudflare",
+      "MDX"
+    ]
+  },
+  {
+    "collection": "projects",
+    "slug": "pastry-shop",
+    "data": {
+      "title": "Pastry Shop",
+      "date": "2026-08-27T12:00:00Z",
+      "summary": "A fictional pastry shop website featuring a menu showcase and shop information. Built with Astro and deployed on Vercel.",
+      "github_link": "https://github.com/icebenitez/pastry-shop",
+      "web_link": "https://pastry-shop-eta.vercel.app/",
+      "content": "A simple website for a fictional pastry shop, demonstrating menu displays and responsive design. Built with Astro for fast performance and deployed on Vercel."
+    },
+    "tags": [
+      "Astro",
+      "Vercel"
+    ]
+  }
+]
