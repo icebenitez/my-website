@@ -4,14 +4,13 @@ Always respond in English only. Do not write replies in Mandarin, Chinese, or an
 
 ## Development
 
-This is a single Astro app (`apps/web`) in an npm workspace. When starting the dev server, run it from the app directory and use background mode:
+This is a single Astro app at the repo root (no workspaces). Start the dev server in background mode:
 
 ```
-cd apps/web
 astro dev --background
 ```
 
-Install dependencies from the repo root with `npm install`. Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`. If the workspace-local `astro` shim misbehaves (stale `apps/web/node_modules`), run it via the root install instead: `node ../../node_modules/astro/bin/astro.mjs dev --background`.
+Install dependencies with `npm install`. Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
 ## Documentation
 
