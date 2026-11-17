@@ -1,42 +1,101 @@
 ---
-import MainLayout from '../../layouts/main.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import { getCollection } from 'astro:content';
+import { getEmDashCollection, getTermsForEntries } from "emdash";
+import Base from "../../layouts/Base.astro";
+import PostCard from "../../components/PostCard.astro";
+import Pagination from "../../components/Pagination.astro";
 
-const posts = (await getCollection('blog'))
-  .filter((post) => post.data.status === 'published')
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Sort in the database rather than in JS — lets the DB use its index on
+// date and avoids a full-table scan on the client.
+const cursor = Astro.url.searchParams.get("cursor") || undefined;
+const {
+	entries: posts,
+	cacheHint,
+	nextCursor,
+} = await getEmDashCollection("posts", {
+	orderBy: { date: "desc" },
+	limit: 20,
+	cursor,
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+// Single batched query for tags across all posts, instead of one
+// getEntryTerms() call per post (which would be N round-trips).
+// Bylines are already hydrated on entry.data.bylines.
+const tagsByEntry = await getTermsForEntries(
+	"posts",
+	posts.map((p) => p.data.id),
+	"tag",
+);
+
+const postsWithTags = posts.map((post) => ({
+	post,
+	tags: tagsByEntry.get(post.data.id) ?? [],
+}));
 ---
 
-<MainLayout title="Writing" description="Thoughts on product engineering, building software, and working with startups.">
-  <main id="main" class="container mx-auto px-4 md:px-6">
-    <section class="py-12 md:py-24 lg:py-32">
-      <div class="mx-auto max-w-3xl" data-animate="fade-up">
-        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-          Writing
-        </h1>
-        <p class="mt-4 text-muted-foreground md:text-lg">
-          Thoughts on product engineering, building software, and working with startups.
-        </p>
-      </div>
+<Base title="All Posts" description="Browse all blog posts">
+	<header class="band intro">
+		<div class="frame">
+			<p class="eyebrow">Archive</p>
+			<h1 class="intro__title">All Posts</h1>
+			<p class="intro__lead">Every post, newest first.</p>
+		</div>
+	</header>
 
-      {posts.length === 0 ? (
-        <div class="mt-16 text-center text-muted-foreground">
-          <p>No posts published yet. Check back soon.</p>
-        </div>
-      ) : (
-        <div class="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-animate-stagger>
-          {posts.map((post) => (
-            <BlogCard
-              title={post.data.title}
-              description={post.data.description}
-              tags={post.data.tags}
-              href={`/posts/${post.id}`}
-              date={post.data.date.toISOString()}
-            />
-          ))}
-        </div>
-      )}
-    </section>
-  </main>
-</MainLayout>
+	<section class="band section archive-band">
+		<div class="frame">
+			{
+				posts.length === 0 ? (
+					<div class="empty-state">
+						<h2 class="empty-state__title">
+							{cursor ? "No more posts" : "No posts yet"}
+						</h2>
+						<p class="empty-state__text">
+							{cursor
+								? "You have reached the end of the archive."
+								: "Published posts will show up here."}
+						</p>
+						{cursor && (
+							<div class="empty-state__actions">
+								<a href="/posts" class="btn btn--ghost">
+									First page
+								</a>
+							</div>
+						)}
+					</div>
+				) : (
+					<>
+						<ol class="archive__list">
+							{postsWithTags.map(({ post, tags }) => (
+								<li>
+									<PostCard post={post} tags={tags} variant="row" />
+								</li>
+							))}
+						</ol>
+						<Pagination
+							basePath="/posts"
+							cursor={cursor}
+							nextCursor={nextCursor}
+						/>
+					</>
+				)
+			}
+		</div>
+	</section>
+</Base>
+
+<style>
+	/* The band's rule doubles as the first row divider */
+	.archive-band {
+		padding-block-start: 0;
+	}
+
+	.archive__list {
+		list-style: none;
+	}
+
+	.archive__list > li + li {
+		border-block-start: 1px solid var(--color-border);
+	}
+</style>

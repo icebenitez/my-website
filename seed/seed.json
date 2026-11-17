@@ -1,0 +1,168 @@
+{
+	"$schema": "https://emdashcms.com/seed.schema.json",
+	"version": "1",
+	"meta": {
+		"name": "Ice Benitez — Website",
+		"description": "Personal portfolio: project case studies and writing on product engineering",
+		"author": "Ice Benitez"
+	},
+	"settings": {
+		"title": "Ice Benitez",
+		"tagline": "Product engineer turning ambiguous ideas into useful, reliable software."
+	},
+	"collections": [
+		{
+			"slug": "posts",
+			"label": "Posts",
+			"labelSingular": "Post",
+			"urlPattern": "/posts/{slug}",
+			"supports": ["drafts", "revisions", "preview", "scheduling", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "date",
+					"label": "Publish Date",
+					"type": "datetime",
+					"required": true
+				},
+				{
+					"slug": "featured_image",
+					"label": "Featured Image",
+					"type": "image"
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "excerpt",
+					"label": "Excerpt",
+					"type": "text"
+				}
+			]
+		},
+		{
+			"slug": "projects",
+			"label": "Projects",
+			"labelSingular": "Project",
+			"urlPattern": "/projects/{slug}",
+			"supports": ["drafts", "revisions", "preview", "scheduling", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "date",
+					"label": "Publish Date",
+					"type": "datetime",
+					"required": true
+				},
+				{
+					"slug": "hero_image",
+					"label": "Hero Image",
+					"type": "image"
+				},
+				{
+					"slug": "summary",
+					"label": "Summary",
+					"type": "text",
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				},
+				{
+					"slug": "github_link",
+					"label": "GitHub Link",
+					"type": "url"
+				},
+				{
+					"slug": "web_link",
+					"label": "Live Site Link",
+					"type": "url"
+				}
+			]
+		},
+		{
+			"slug": "pages",
+			"label": "Pages",
+			"labelSingular": "Page",
+			"urlPattern": "/pages/{slug}",
+			"supports": ["drafts", "revisions", "preview", "search", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText",
+					"searchable": true
+				}
+			]
+		}
+	],
+	"taxonomies": [
+		{
+			"name": "tag",
+			"label": "Tags",
+			"labelSingular": "Tag",
+			"hierarchical": false,
+			"collections": ["posts", "projects"],
+			"terms": [
+				{ "slug": "engineering", "label": "Engineering" },
+				{ "slug": "product", "label": "Product" },
+				{ "slug": "tools", "label": "Tools" },
+				{ "slug": "startups", "label": "Startups" },
+				{ "slug": "astro", "label": "Astro" },
+				{ "slug": "mdx", "label": "MDX" }
+			]
+		}
+	],
+	"bylines": [
+		{
+			"id": "byline-ice",
+			"slug": "ice-benitez",
+			"displayName": "Ice Benitez"
+		}
+	],
+	"menus": [
+		{
+			"name": "primary",
+			"label": "Primary Navigation",
+			"items": [
+				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "Projects", "url": "/projects" },
+				{ "type": "custom", "label": "Writing", "url": "/posts" },
+				{ "type": "custom", "label": "Contact", "url": "/contact" }
+			]
+		}
+	],
+	"widgetAreas": [
+		{
+			"name": "footer",
+			"label": "Footer",
+			"description": "Widgets rendered in the footer",
+			"widgets": []
+		}
+	]
+}

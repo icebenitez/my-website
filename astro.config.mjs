@@ -1,14 +1,45 @@
-// @ts-check
+import cloudflare from "@astrojs/cloudflare";
+import react from "@astrojs/react";
+import { d1, r2 } from "@emdash-cms/cloudflare";
+import { defineConfig, fontProviders } from "astro/config";
+import emdash from "emdash/astro";
 
-import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-
-// https://astro.build/config
 export default defineConfig({
-  site: process.env.PUBLIC_SITE_URL ?? 'https://icebenitez.com',
-  integrations: [mdx()],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+	output: "server",
+	adapter: cloudflare(),
+	image: {
+		layout: "constrained",
+		responsiveStyles: true,
+	},
+	integrations: [
+		react(),
+		emdash({
+			database: d1({ binding: "DB", session: "auto", coalesce: true }),
+			storage: r2({ binding: "MEDIA" }),
+		}),
+	],
+	fonts: [
+		{
+			provider: fontProviders.google(),
+			name: "Archivo",
+			cssVariable: "--font-body",
+			weights: [400, 500, 600, 700],
+			fallbacks: ["sans-serif"],
+		},
+		{
+			provider: fontProviders.google(),
+			name: "Space Grotesk",
+			cssVariable: "--font-heading",
+			weights: [500, 600, 700],
+			fallbacks: ["sans-serif"],
+		},
+		{
+			provider: fontProviders.google(),
+			name: "JetBrains Mono",
+			cssVariable: "--font-mono",
+			weights: [400, 500],
+			fallbacks: ["monospace"],
+		},
+	],
+	devToolbar: { enabled: false },
 });

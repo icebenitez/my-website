@@ -4,13 +4,17 @@ Always respond in English only. Do not write replies in Mandarin, Chinese, or an
 
 ## Development
 
-This is a single Astro app at the repo root (no workspaces). Start the dev server in background mode:
+This is an EmDash (CMS on Astro) site at the repo root, deployed as a Cloudflare Worker. Start the dev server in background mode:
 
 ```
 astro dev --background
 ```
 
-Install dependencies with `npm install`. Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+- Site: http://localhost:4321 — admin panel: http://localhost:4321/_emdash/admin
+- Install dependencies with `npm install`. Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+- Content lives in D1 (managed via the admin UI or `npx emdash` CLI) — the MDX collection in `content-mdx-archive/` is a read-only archive, not part of the app.
+- EmDash template rules: restyle via `src/styles/theme.css` token overrides only; don't edit `src/styles/tokens.css` or `src/layouts/Base.astro` for visual changes; new sections use `.band`/`.frame`.
+- EmDash agent skills live in `.agents/skills/` (building-emdash-site, emdash-cli); EmDash docs are available as an MCP server at `https://docs.emdashcms.com/mcp` — verify APIs against it instead of assuming.
 
 ## Documentation
 

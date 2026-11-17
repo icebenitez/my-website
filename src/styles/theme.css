@@ -1,0 +1,21 @@
+/*
+  theme.css -- Ice Benitez brand overrides.
+
+  Brand: the site's blue (oklch tokens carried over from the previous
+  Tailwind theme). Fonts: Space Grotesk for headings, Archivo for body
+  (loaded in astro.config.mjs via the Google provider).
+*/
+
+:root {
+	--color-brand: light-dark(
+		oklch(0.546 0.245 262.881),
+		oklch(0.623 0.214 259.815)
+	);
+	--color-brand-hover: light-dark(
+		oklch(0.48 0.22 262),
+		oklch(0.68 0.2 259)
+	);
+	--color-on-brand: light-dark(#ffffff, #ffffff);
+	--font-heading: "Space Grotesk", sans-serif;
+	--font-weight-display: 700;
+}
